@@ -1,2 +1,2 @@
-# bookflixApp
-Bookflix - the ultimate books recommendation system
+# NetBookApp
+NetBook - the ultimate books recommendation system
