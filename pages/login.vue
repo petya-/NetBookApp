@@ -67,32 +67,30 @@ export default {
     async login() {
       try {
         this.$toast.show('Logging in...', { icon: 'fingerprint' })
-        await this.$auth
-          .loginWith('local', {
-            data: {
-              username: this.username,
-              password: this.password
-            }
-          })
-          .catch(e => {
-            this.error = e
-            this.$toast.error('Failed Logging In', { icon: 'error_outline' })
-          })
+
+        const res = await this.$auth.loginWith('local', {
+          data: {
+            username: this.username,
+            password: this.password
+          }
+        })
+
+        this.$auth
+          .setUserToken(res.accessToken)
+          .then(() => this.$toast.success('User set!'))
         if (this.$auth.loggedIn) {
           this.$toast.success('Successfully Logged In', { icon: 'done' })
         }
+        this.$router.push('/browse')
       } catch (e) {
         this.error = e
-        this.$toast.error('Username or Password wrong', { icon: 'error' })
+        this.$toast.error('Failed Logging In', { icon: 'error_outline' })
       }
-    },
-    check() {
-      console.log(this.$auth.loggedIn)
-    },
-    logout() {
-      this.$toast.show('Logging out...', { icon: 'fingerprint' })
-      this.$auth.logout()
     }
+    // logout() {
+    //   this.$toast.show('Logging out...', { icon: 'fingerprint' })
+    //   this.$auth.logout()
+    // }
   }
 }
 </script>

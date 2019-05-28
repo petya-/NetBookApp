@@ -89,12 +89,12 @@ export default {
             method: 'post',
             propertyName: 'accessToken'
           },
-          logout: false
-          // user: {
-          //   url: '/auth/user',
-          //   method: 'get',
-          //   propertyName: 'data'
-          // },
+          logout: false,
+          user: {
+            url: '/user/details',
+            method: 'get',
+            propertyName: 'data'
+          }
         },
         tokenRequired: true,
         tokenType: 'Bearer'
@@ -103,8 +103,8 @@ export default {
     redirect: {
       login: '/?login=1',
       logout: '/',
-      user: '/profile',
-      callback: '/'
+      // user: '/profile',
+      callback: '/browse'
     }
   },
   /*

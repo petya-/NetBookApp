@@ -1,7 +1,6 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <div class="text-xs-center" />
       <v-card class="text-xs-center">
         <v-card-title class="display-2 font-weight-thin justify-center">
           Read anywhere, at any time.

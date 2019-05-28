@@ -95,23 +95,15 @@ export default {
           password: this.password,
           role: ['user', 'pm']
         })
-        // await this.$auth.register('local', {
-        //   data: {
-        //     name: this.name,
-        //     email: this.email,
-        //     username: this.username,
-        //     password: this.password
-        //   }
-        // })
 
-        // await this.$auth.loginWith('local', {
-        //   data: {
-        //     username: this.username,
-        //     password: this.password
-        //   }
-        // })
+        await this.$auth.loginWith('local', {
+          data: {
+            username: this.username,
+            password: this.password
+          }
+        })
 
-        this.$router.push('/')
+        this.$router.push('/browse')
       } catch (e) {
         this.eerror = e
         console.log(e)
