@@ -11,7 +11,7 @@
             <v-card-text>
               <Notification v-if="error" :message="error" />
 
-              <v-form method="post" @submit.prevent="register">
+              <v-form>
                 <v-text-field
                   v-model="name"
                   prepend-icon="person"
@@ -49,7 +49,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary">Register</v-btn>
+              <v-btn color="primary" @click="register">Register</v-btn>
             </v-card-actions>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -77,6 +77,7 @@ export default {
 
   data() {
     return {
+      name: '',
       username: '',
       email: '',
       password: '',
@@ -87,22 +88,33 @@ export default {
   methods: {
     async register() {
       try {
-        await this.$axios.post('register', {
+        await this.$axios.post('auth/signup', {
+          name: this.name,
           username: this.username,
           email: this.email,
-          password: this.password
+          password: this.password,
+          role: ['user', 'pm']
         })
+        // await this.$auth.register('local', {
+        //   data: {
+        //     name: this.name,
+        //     email: this.email,
+        //     username: this.username,
+        //     password: this.password
+        //   }
+        // })
 
-        await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password
-          }
-        })
+        // await this.$auth.loginWith('local', {
+        //   data: {
+        //     username: this.username,
+        //     password: this.password
+        //   }
+        // })
 
         this.$router.push('/')
       } catch (e) {
-        this.error = e.response.data.message
+        this.eerror = e
+        console.log(e)
       }
     }
   }

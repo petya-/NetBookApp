@@ -45,7 +45,10 @@ export default {
    ** Customize the progress-bar color
    */
   loading: {
-    color: '#fff'
+    name: 'chasing-dots',
+    color: '#ff5638',
+    background: 'white',
+    height: '4px'
   },
 
   /*
@@ -63,15 +66,63 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
+    '@nuxtjs/toast'
   ],
   /*
    ** Axios module configuration
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'http://localhost:8762/api'
   },
-
+  /*
+   ** Auth module configuration
+   */
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/signin',
+            method: 'post',
+            propertyName: 'accessToken'
+          },
+          logout: false
+          // user: {
+          //   url: '/auth/user',
+          //   method: 'get',
+          //   propertyName: 'data'
+          // },
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer'
+      }
+    },
+    redirect: {
+      login: '/?login=1',
+      logout: '/',
+      user: '/profile',
+      callback: '/'
+    }
+  },
+  /*
+   ** Toast module configuration
+   */
+  toast: {
+    position: 'top-center',
+    register: [
+      // Register custom toasts
+      {
+        name: 'my-error',
+        message: 'Oops...Something went wrong',
+        options: {
+          type: 'error'
+        }
+      }
+    ]
+  },
   /*
    ** Build configuration
    */
