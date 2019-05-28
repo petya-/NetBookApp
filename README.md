@@ -1,10 +1,10 @@
 # netbook-app
 
-> My remarkable Nuxt.js project
+> The ultimate books recommendation system
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ npm install
 
