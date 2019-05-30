@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
-      <v-flex v-for="book in $store.state.books" :key="book" xs3>
+      <v-flex v-for="book in books" :key="book" xs3>
         <v-card class="text-xs-center" xs6>
           <v-card-title
             color="#70acb1"
@@ -44,10 +44,15 @@ export default {
       books: []
     }
   },
-  async fetch({ store }) {
-    let { data } = await store.$axios.get('/content/allbooks')
-    console.log(data)
-    store.commit('setBooks', data)
+  // async fetch({ store }) {
+  //   let { data } = await store.$axios.get('/content/allbooks')
+  //   console.log(data)
+  //   store.commit('setBooks', data)
+  // },
+  async mounted() {
+    let { data } = await this.$axios.get('/content/allbooks')
+    this.books = data
+    console.log(this.books)
   },
   methods: {
     // async fetchRecommendedBooks() {
