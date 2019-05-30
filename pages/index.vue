@@ -3,7 +3,7 @@
     <v-flex xs12 sm8 md6>
       <v-card class="text-xs-center">
         <v-flex xs6 offset-xs3>
-          <v-card-media contain :src="logo"> </v-card-media>
+          <v-img contain :src="logo"> </v-img>
         </v-flex>
         <v-card-title
           class="card-title display-1 font-weight-thin justify-center"
