@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
-      <v-flex v-for="i in 4" :key="`3${i}`" xs3>
+      <v-flex v-for="book in $store.state.books" :key="book" xs3>
         <v-card class="text-xs-center" xs6>
           <v-card-title
             color="#70acb1"
@@ -23,8 +23,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="#70acb1" flat nuxt to="/review">
-              Review
+            <v-btn color="#70acb1" flat nuxt :to="`/book/${book.isbn}`">
+              View
             </v-btn>
             <v-btn color="#70acb1" flat nuxt to="/read">
               Read
@@ -39,7 +39,22 @@
 export default {
   // Access only if user is authenticated
   middleware: 'authenticated',
-  methods: {}
+  data() {
+    return {
+      books: []
+    }
+  },
+  async fetch({ store }) {
+    let { data } = await store.$axios.get('/content/allbooks')
+    console.log(data)
+    store.commit('setBooks', data)
+  },
+  methods: {
+    // async fetchRecommendedBooks() {
+    //   let { data } = await this.$axios.get('/content/allbooks')
+    //   console.log(data)
+    // }
+  }
 }
 </script>
 
