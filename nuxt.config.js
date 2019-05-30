@@ -93,17 +93,16 @@ export default {
           user: {
             url: '/user/details',
             method: 'get',
-            propertyName: 'data'
+            propertyName: false
           }
         },
-        tokenRequired: true,
-        tokenType: 'Bearer'
+        tokenRequired: true
       }
     },
     redirect: {
       login: '/?login=1',
       logout: '/',
-      // user: '/profile',
+      user: '/profile',
       callback: '/browse'
     }
   },

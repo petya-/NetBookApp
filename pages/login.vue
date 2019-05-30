@@ -68,16 +68,17 @@ export default {
       try {
         this.$toast.show('Logging in...', { icon: 'fingerprint' })
 
-        const res = await this.$auth.loginWith('local', {
+        await this.$auth.loginWith('local', {
           data: {
             username: this.username,
             password: this.password
           }
         })
+        // const token = `Bearer ${res.accessToken}`
 
-        this.$auth
-          .setUserToken(res.accessToken)
-          .then(() => this.$toast.success('User set!'))
+        // this.$auth
+        //   .setUserToken(token)
+        //   .then(() => this.$toast.success('User set!'))
         if (this.$auth.loggedIn) {
           this.$toast.success('Successfully Logged In', { icon: 'done' })
         }
