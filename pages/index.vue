@@ -6,7 +6,7 @@
           <v-card-media contain :src="logo"> </v-card-media>
         </v-flex>
         <v-card-title
-          class="index-card-title display-1 font-weight-thin justify-center"
+          class="card-title display-1 font-weight-thin justify-center"
         >
           Read anywhere, at any time.
         </v-card-title>
@@ -42,8 +42,8 @@ export default {
 }
 </script>
 
-<style>
-.index-card-title {
+<style scoped>
+.card-title {
   color: #70acb1;
 }
 </style>
