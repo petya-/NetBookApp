@@ -4,7 +4,7 @@
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4>
           <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
+            <v-toolbar dark color="#70acb1">
               <v-toolbar-title>Login</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
@@ -12,14 +12,17 @@
               <v-form>
                 <v-text-field
                   v-model="username"
+                  color="#70acb1"
                   prepend-icon="person"
                   name="username"
                   label="Username"
                   type="text"
+                  autocomplete="off"
                 ></v-text-field>
                 <v-text-field
                   id="password"
                   v-model="password"
+                  color="#70acb1"
                   prepend-icon="lock"
                   name="password"
                   label="Password"
@@ -29,14 +32,14 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="login">Login</v-btn>
+              <v-btn color="#70acb1" @click="login">Login</v-btn>
             </v-card-actions>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-card-text class="text-xs-right">
                 Don't have an account?
               </v-card-text>
-              <v-btn color="primary" flat nuxt to="/register">
+              <v-btn color="#70acb1" flat nuxt to="/register">
                 Register
               </v-btn>
             </v-card-actions>
@@ -89,3 +92,5 @@ export default {
   }
 }
 </script>
+
+<style></style>
