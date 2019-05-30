@@ -9,8 +9,6 @@
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-text>
-              <Notification v-if="error" :message="error" />
-
               <v-form>
                 <v-text-field
                   v-model="username"
@@ -50,11 +48,11 @@
 </template>
 
 <script>
-import Notification from '~/components/Notification'
+// import Notification from '~/components/Notification'
 
 export default {
   components: {
-    Notification
+    // Notification
   },
   data() {
     return {
@@ -66,32 +64,28 @@ export default {
   methods: {
     async login() {
       try {
-        this.$toast.show('Logging in...', { icon: 'fingerprint' })
-
         await this.$auth.loginWith('local', {
           data: {
             username: this.username,
             password: this.password
           }
         })
-        // const token = `Bearer ${res.accessToken}`
 
-        // this.$auth
-        //   .setUserToken(token)
-        //   .then(() => this.$toast.success('User set!'))
         if (this.$auth.loggedIn) {
-          this.$toast.success('Successfully Logged In', { icon: 'done' })
+          this.$toast.show('Authenthicated', {
+            icon: 'fingerprint',
+            duration: 1000
+          })
         }
         this.$router.push('/browse')
       } catch (e) {
         this.error = e
-        this.$toast.error('Failed Logging In', { icon: 'error_outline' })
+        this.$toast.error('Failed Logging In', {
+          icon: 'error_outline',
+          duration: 1000
+        })
       }
     }
-    // logout() {
-    //   this.$toast.show('Logging out...', { icon: 'fingerprint' })
-    //   this.$auth.logout()
-    // }
   }
 }
 </script>

@@ -68,12 +68,8 @@
 </template>
 
 <script>
-import Notification from '~/components/Notification'
-
 export default {
-  components: {
-    Notification
-  },
+  components: {},
 
   data() {
     return {
@@ -94,6 +90,10 @@ export default {
           email: this.email,
           password: this.password,
           role: ['user', 'pm']
+        })
+        this.$toast.success('Successfully signed up', {
+          icon: 'done',
+          duration: 10
         })
 
         await this.$auth.loginWith('local', {

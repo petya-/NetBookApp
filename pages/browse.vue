@@ -35,6 +35,7 @@
 <script>
 export default {
   // Access only if user is authenticated
-  // middleware: 'authenticated'
+  middleware: 'authenticated',
+  methods: {}
 }
 </script>
