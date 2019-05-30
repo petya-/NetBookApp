@@ -1,18 +1,27 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <v-layout row wrap align-center>
-      <v-flex>
-        <v-card class="text-xs-center" xs6>
+      <v-flex xs6>
+        <v-card class="text-xs-center">
           <v-card-title
             color="#70acb1"
-            class="card-title display-2 font-weight-thin justify-center"
+            class="card-title display-1 font-weight-thin justify-center"
           >
-            Book title
+            {{ book.originalTitle }}
           </v-card-title>
+          <v-flex xs6 offset-xs3>
+            <v-img contain :src="book.imageUrl" height="250px" />
+          </v-flex>
           <v-card-text>
-            <p>
-              Book description
-            </p>
+            <div class="text-xs-center">
+              <v-rating
+                v-model="book.averageRating"
+                light
+                color="#70acb1"
+                readonly
+              ></v-rating>
+            </div>
+            <p></p>
             <p>
               Author
             </p>
@@ -31,7 +40,9 @@
         </v-card>
       </v-flex>
 
-      <review> </review>
+      <v-flex xs12>
+        <review> </review>
+      </v-flex>
 
       <!-- <v-layout> -->
       <v-flex xs12 sm6 offset-sm3>
@@ -42,7 +53,7 @@
           >
             Reviews
           </v-card-title>
-          <v-container v-bind="{ [`grid-list-${size}`]: true }" fluid>
+          <v-container fluid>
             <v-layout row wrap>
               <v-flex v-for="i in 4" :key="`3${i}`" xs6>
                 <v-card class="text-xs-center" xs6>
@@ -82,7 +93,14 @@ export default {
     review
   },
   data() {
-    return {}
+    return {
+      book: Object,
+      isbn: $nuxt.$route.params.book
+    }
+  },
+  async mounted() {
+    const { data } = await this.$axios.get(`/content/book/${this.isbn}`)
+    this.book = data
   }
 }
 </script>
