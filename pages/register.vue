@@ -80,8 +80,7 @@ export default {
       name: '',
       username: '',
       email: '',
-      password: '',
-      error: null
+      password: ''
     }
   },
 
@@ -109,7 +108,6 @@ export default {
 
         this.$router.push('/browse')
       } catch (e) {
-        this.eerror = e
         console.log(e)
       }
     }

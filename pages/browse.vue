@@ -31,10 +31,9 @@ export default {
       books: []
     }
   },
-  async mounted() {
-    let { data } = await this.$axios.get('/content/allbooks')
-    this.books = data
-    console.log(this.books)
+  async asyncData({ $axios }) {
+    const data = await $axios.$get('/content/allbooks')
+    return { books: data }
   }
 }
 </script>

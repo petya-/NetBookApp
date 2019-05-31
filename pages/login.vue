@@ -77,7 +77,6 @@ export default {
         }
         this.$router.push('/browse')
       } catch (e) {
-        this.error = e
         this.$toast.error('Failed Logging In', {
           icon: 'error_outline',
           duration: 1000
