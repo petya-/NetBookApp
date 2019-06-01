@@ -2,12 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _16c05fd6 = () => interopDefault(import('../pages/bookmarks.vue' /* webpackChunkName: "pages/bookmarks" */))
 const _0495e222 = () => interopDefault(import('../pages/browse.vue' /* webpackChunkName: "pages/browse" */))
 const _ab6b0922 = () => interopDefault(import('../pages/favorites.vue' /* webpackChunkName: "pages/favorites" */))
 const _1e0d2781 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
 const _49cd948a = () => interopDefault(import('../pages/register.vue' /* webpackChunkName: "pages/register" */))
+const _c214de8c = () => interopDefault(import('../pages/book/_book.vue' /* webpackChunkName: "pages/book/_book" */))
+const _4289fb54 = () => interopDefault(import('../pages/read/_read.vue' /* webpackChunkName: "pages/read/_read" */))
 const _5465846a = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
-const _0168e460 = () => interopDefault(import('../pages/_book.vue' /* webpackChunkName: "pages/_book" */))
 
 Vue.use(Router)
 
@@ -84,6 +86,10 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/bookmarks",
+      component: _16c05fd6,
+      name: "bookmarks"
+    }, {
       path: "/browse",
       component: _0495e222,
       name: "browse"
@@ -100,13 +106,17 @@ export function createRouter() {
       component: _49cd948a,
       name: "register"
     }, {
+      path: "/book/:book?",
+      component: _c214de8c,
+      name: "book-book"
+    }, {
+      path: "/read/:read?",
+      component: _4289fb54,
+      name: "read-read"
+    }, {
       path: "/",
       component: _5465846a,
       name: "index"
-    }, {
-      path: "/:book",
-      component: _0168e460,
-      name: "book"
     }],
 
     fallback: false

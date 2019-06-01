@@ -61,7 +61,7 @@ export default {
         {
           icon: 'bubble_chart',
           title: 'My favorites',
-          to: '/login'
+          to: '/bookmarks'
         }
       ],
       miniVariant: false,

@@ -7,36 +7,41 @@
             color="#70acb1"
             class="card-title display-1 font-weight-thin justify-center"
           >
-            {{ book.originalTitle }}
+            {{ book.internationaltitle }}
+            <v-flex xs12>
+              <span class="grey--text">by {{ authorNames }}</span>
+            </v-flex>
           </v-card-title>
-          <v-flex xs6 offset-xs3>
-            <v-img contain :src="book.imageUrl" height="250px" />
-          </v-flex>
           <v-card-text>
             <div class="text-xs-center">
               <v-rating
-                v-model="book.averageRating"
+                v-model="book.averagerating"
+                class="ratings"
                 light
                 color="#70acb1"
                 readonly
               ></v-rating>
             </div>
-            <!-- <p>
-              Author
-            </p> -->
           </v-card-text>
+          <v-flex xs6 offset-xs3 mb-5>
+            <v-img contain :src="book.imageUrl" height="250px" />
+          </v-flex>
+
           <v-divider light></v-divider>
 
           <v-card-actions>
             <v-spacer />
-            <v-btn color="#70acb1" flat nuxt to="/read">
+            <v-btn color="#70acb1" flat nuxt :to="`/read/${book.id}`">
               Read
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
+      <v-flex v-if="!hasReview" xs5 md5 offset-sm3>
+        <review :isbn="book.isbn" :book-id="book.id"> </review>
+      </v-flex>
 
-      <v-flex xs5 md5 offset-sm3>
+      <v-flex xs12>
         <v-card>
           <v-toolbar color="#70acb1" dark>
             <v-toolbar-title>Reviews</v-toolbar-title>
@@ -45,18 +50,19 @@
           </v-toolbar>
 
           <v-list two-line>
+            <template v-if="reviews.length < 1">
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>
+                    There are no reviews yet
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </template>
             <template v-for="(review, index) in reviews">
-              <v-subheader v-if="review.header" :key="review.header">
-                {{ review.header }}
-              </v-subheader>
+              <v-divider v-if="index > 0" :key="index"></v-divider>
 
-              <v-divider
-                v-else-if="review.divider"
-                :key="index"
-                :inset="review.inset"
-              ></v-divider>
-
-              <v-list-tile v-else :key="review.title" avatar>
+              <v-list-tile :key="index" avatar>
                 <v-list-tile-avatar color="#70acb1">
                   <span class="white--text headline">{{ userInitial }}</span>
                 </v-list-tile-avatar>
@@ -72,11 +78,6 @@
           </v-list>
         </v-card>
       </v-flex>
-
-      <v-flex xs12>
-        <review v-if="!hasReview" :isbn="book.isbn" :book-id="book.bookid">
-        </review>
-      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -91,22 +92,28 @@ export default {
   data() {
     return {
       book: Object,
-      reviews: [],
+      reviews: Array,
       userInitial: this.$auth.user.name.charAt(0),
-      hasReview: Boolean
+      hasReview: Boolean,
+      authors: Array,
+      authorNames: String
     }
   },
   async asyncData({ $axios, params }) {
     const bookData = await $axios.$get(`/content/book/${params.book}`)
     const reviewsData = await $axios.$get(`/reviews/reviews`)
+    const bookAuthors = await $axios.$get(`content/book/authors/${params.book}`)
 
     const bookReviews = reviewsData.filter(
       review => review.ISBN === bookData.isbn
     )
-    return { book: bookData, reviews: bookReviews }
+
+    return { book: bookData, reviews: bookReviews, authors: bookAuthors }
   },
   created() {
     this.hasReview = this.reviews.some(this.checkForReview)
+    this.authorNames = this.authors.map(author => author.fullName)
+    this.authorNames = this.authorNames.join(' and ')
   },
   methods: {
     checkForReview(review) {
@@ -115,3 +122,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.empty-icon {
+  color: red;
+}
+</style>
