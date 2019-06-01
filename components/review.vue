@@ -8,6 +8,7 @@
       <v-form>
         <v-text-field
           v-model="title"
+          name="title"
           label="Title"
           full-width
           hide-details
@@ -19,6 +20,7 @@
         <v-divider></v-divider>
         <v-text-field
           v-model="content"
+          name="content"
           color="cyan darken"
           placeholder="This book was..."
           multiple

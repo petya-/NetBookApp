@@ -62,7 +62,7 @@
             <template v-for="(review, index) in reviews">
               <v-divider v-if="index > 0" :key="index"></v-divider>
 
-              <v-list-tile :key="index" avatar>
+              <v-list-tile :key="review.title" avatar>
                 <v-list-tile-avatar color="#70acb1">
                   <span class="white--text headline">{{ userInitial }}</span>
                 </v-list-tile-avatar>
@@ -73,6 +73,13 @@
                     review.content
                   }}</v-list-tile-sub-title>
                 </v-list-tile-content>
+                <v-list-tile-action
+                  v-if="hasReview && isReviewOwner()._id == review._id"
+                >
+                  <v-icon color="#70acb1" @click="deleteReview(review)"
+                    >delete</v-icon
+                  >
+                </v-list-tile-action>
               </v-list-tile>
             </template>
           </v-list>
@@ -118,6 +125,16 @@ export default {
   methods: {
     checkForReview(review) {
       return review.authorId === this.$auth.user.id
+    },
+    isReviewOwner() {
+      if (this.hasReview)
+        return this.reviews.find(
+          review => review.authorId === this.$auth.user.id
+        )
+    },
+    async deleteReview(review) {
+      await this.$axios.delete(`/reviews/reviews/${review._id}`)
+      window.location.reload(true)
     }
   }
 }
