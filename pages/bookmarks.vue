@@ -28,11 +28,15 @@ export default {
   middleware: 'authenticated',
   data() {
     return {
-      books: []
+      books: [],
+      user: this.$auth.user
     }
   },
-  async asyncData({ $axios }) {
-    const data = await $axios.$get('/content/allbooks')
+  async asyncData({ store, $axios }) {
+    const data = await $axios.$get(
+      `/content/user/bookstoread/${store.$auth.$state.user.id}`
+    )
+    console.log(data)
     return { books: data }
   }
 }
