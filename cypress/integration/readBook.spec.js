@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-context('Login', () => {
+context('Read Book', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8000')
     cy.login('test', 'test123')
